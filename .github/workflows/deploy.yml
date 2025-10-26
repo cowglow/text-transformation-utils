@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: npm
+
+      - name: Install dependencies 📦
+        run: npm ci
+
+      - name: Build 🔨
+        run: npm run build:site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist  # <-- ensure this matches your framework output
+
+      - name: Deploy 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4

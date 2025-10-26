@@ -1,0 +1,31 @@
+{
+  "name": "text-transformation-utils",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && LIB=true vite build",
+    "build:site": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.3"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/text-transformation-utils.es.js",
+      "require": "./dist/text-transformation-utils.cjs.js",
+      "types": "./dist/main.d.ts"
+    }
+  }
+}
