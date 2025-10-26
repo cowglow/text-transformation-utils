@@ -1,13 +1,8 @@
-# TEXT TRANSFORMATION-UTILS
-
+# Text Transformation Utilities
 Simple formatting collection.
 
 Includes:
 - Morse code
-
-Not yet included:
-- Measurements
-- Date Time
 
 ## License
 MIT
