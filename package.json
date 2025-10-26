@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:watch": "vitest watch",
@@ -22,9 +22,10 @@
   },
   "exports": {
     ".": {
+      "types": "./dist/main.d.ts",
       "import": "./dist/text-transformation-utils.es.js",
-      "require": "./dist/text-transformation-utils.cjs.js",
-      "types": "./dist/main.d.ts"
+      "require": "./dist/text-transformation-utils.cjs.js"
     }
-  }
+  },
+  "types": "./dist/main.d.ts"
 }
