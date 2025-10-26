@@ -2,7 +2,10 @@ import { defineConfig } from "vite";
 import dtsPlugin from "vite-plugin-dts";
 
 export default defineConfig({
+  base: "/text-transformation-utils/",
   build: {
+    outDir: "dist",
+    emptyOutDir: true,
     lib: {
       entry: "src/main.ts",
       name: "TextTransformationUtils",
