@@ -9,3 +9,5 @@ Not yet included:
 - Measurements
 - Date Time
 
+## License
+MIT
