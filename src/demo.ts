@@ -1,4 +1,5 @@
 import { textToMorse } from "./morse/text-to-morse.ts";
+import { playMorse } from "./morse/tone.ts";
 
 const form = document.getElementById("textForm") as HTMLFormElement | null;
 const textInput = document.getElementById(
@@ -9,6 +10,7 @@ const morseOutput = document.getElementById(
 ) as HTMLInputElement | null;
 const copyBtn = document.getElementById("copyBtn") as HTMLButtonElement | null;
 const msgSpan = document.getElementById("msg") as HTMLSpanElement | null;
+const playBtn = document.getElementById("playBtn") as HTMLButtonElement | null;
 
 function updateMorse(
   textInput: HTMLInputElement,
@@ -17,7 +19,6 @@ function updateMorse(
   fromInput = true,
 ) {
   const text = (textInput.value || "").toString();
-  // console.log({ text });
   try {
     morseOutput.value = textToMorse(text);
   } catch {
@@ -51,7 +52,7 @@ function hydrateFromUrl({
   updateMorse(textInput, morseOutput, msgSpan, false);
 }
 
-if (form && textInput && morseOutput && copyBtn && msgSpan) {
+if (form && textInput && morseOutput && copyBtn && msgSpan && playBtn) {
   // form submit explicitly updates URL and keeps focus
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -71,11 +72,18 @@ if (form && textInput && morseOutput && copyBtn && msgSpan) {
   });
 
   // live update input -> morse (does not push history on every keystroke, optionally pass false to avoid URL change)
-  textInput.addEventListener("input", () =>
-    updateMorse(textInput, morseOutput, msgSpan, false),
-  );
+  textInput.addEventListener("input", () => {
+    updateMorse(textInput, morseOutput, msgSpan, false);
+    playBtn.disabled = !Boolean(morseOutput.value);
+  });
 
-  hydrateFromUrl({ textInput, morseOutput, msgSpan });
+  playBtn.addEventListener("click", async () => {
+    playMorse(morseOutput.value);
+  });
+
+  // Initial
+  // hydrateFromUrl({ textInput, morseOutput, msgSpan });
+  playBtn.disabled = !Boolean(morseOutput.value);
 
   window.addEventListener("popstate", () => {
     hydrateFromUrl({ textInput, morseOutput, msgSpan });
