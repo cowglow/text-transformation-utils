@@ -19,7 +19,6 @@ function updateMorse(
   fromInput = true,
 ) {
   const text = (textInput.value || "").toString();
-  // console.log({ text });
   try {
     morseOutput.value = textToMorse(text);
   } catch {
@@ -79,10 +78,7 @@ if (form && textInput && morseOutput && copyBtn && msgSpan && playBtn) {
   });
 
   playBtn.addEventListener("click", async () => {
-    console.log(`play: ${morseOutput.value}`);
-
-    playMorse("... --- ...");
-    // playMorse(morseOutput.value);
+    playMorse(morseOutput.value);
   });
 
   // Initial
